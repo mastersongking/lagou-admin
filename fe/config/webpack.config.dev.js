@@ -16,12 +16,16 @@ module.exports = {
         compress: true,
         port: 8000
     },
-    // loaders
+    // loaders对.art和.css或.scss文件进行解析
     module : {
         rules :[
             {
                 test : /\.art$/,
                 loader : "art-template-loader" 
+            },
+            {
+                test : /\.(scss||css)$/,
+                loader : ['style-loader','css-loader','sass-loader']
             }
         ]
     },
