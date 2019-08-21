@@ -14,8 +14,15 @@ module.exports = {
     devServer : {
         contentBase: path.join(__dirname, "../dev"),
         compress: true,
-        port: 8000
+        port: 8000,
+        //服务器代理
+        proxy: {
+            "/api": {
+                target: "http://localhost:3000",
+            }
+        }
     },
+    
     // loaders对.art和.css或.scss文件进行解析
     module : {
         rules :[

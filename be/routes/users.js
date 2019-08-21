@@ -4,7 +4,9 @@ var router = express.Router();
 const UserC  = require( "../controller/users");
 /* GET users listing. */
 router.post('/signinL', UserC.signIn);//登录时，请求的接口
+
 // 对接口的相应，数据的回应 => 写成一个模块。
+
 router.post('/signupL', UserC.signUp);//注册时，请求的接口
 
 module.exports = router;

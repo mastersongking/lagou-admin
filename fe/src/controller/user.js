@@ -1,5 +1,6 @@
 import userView from "../view/user.art";
 let _url = "";
+let _type = "";
 export default {
     render(){
         // 未登录和已登录的navbar是不同的
@@ -19,7 +20,11 @@ export default {
         $(".dropdown-toggle .btn-sign").on("click",function(){
             // 由于登录注册最后提交表单数据均是同一个按钮，
             // 需要设置一个_url作为标示，来请求不同的接口
-            _url = $(this).index() === 0 ? '/api/users/signinL' : '/api/users/signupL';
+
+            _type = $(this).index(); //=>根据type判定用户点击的是登录还是注册
+
+            _url = _type == 0 ? '/api/users/signinL' : '/api/users/signupL';
+            $('input').val("");
         })
         $("#btn-submit").on("click",()=>{
             let data = $("#user-form").serialize() //序列表表格内容为字符串，用于 Ajax 请求。
@@ -28,8 +33,31 @@ export default {
                 url : _url,
                 data,
                 type : "POST",
+                // 根据后台返回的数据进行页面渲染
                 success(res){
-                    console.log(res);
+                    if(_type == 0){
+                        // console.log(res)
+                        if(res.state){
+                            let html = userView({ 
+                                // true => 已登录  false => 未登录
+                                isSigin : true,
+                                username : res.data.username
+                            })
+                            $(".user-menu").html(html);
+                        }
+                        else{
+                            alert(res.data.msg)
+                        }
+                    }
+                    else{
+                        if(res.state){
+                            alert("注册成功")
+                        }
+                        else{
+                            alert("注册失败") 
+                        }
+                    }
+
                 }
             })
         })
