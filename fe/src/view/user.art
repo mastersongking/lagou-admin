@@ -2,13 +2,15 @@
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
     <!-- hidden-xs hides the username on small devices so only the image appears. -->
     {{if !isSigin}}
-    <span class="hidden-xs btn-sign" id="btn-sign">登录</span>
-    <span class="hidden-xs btn-sign" id="btn-sign">注册</span>
+    <span class="hidden-xs btn-sign" id="btn-signIn">登录</span>
+    <span class="hidden-xs btn-sign" id="btn-signUp">注册</span>
     {{/if}}
     {{if isSigin}}
     <!-- The user image in the navbar-->
-    <img src="/public/images/user2-160x160.jpg" class="user-image" alt="User Image">
-    <span class="hidden-xs">你好，{{username}}</span>
+    <span class="hidden-xs">
+        <img src="/public/images/user2-160x160.jpg" class="user-image" alt="User Image">
+        <i>你好，{{username}}</i>
+    </span>
     {{/if}}
 </a>
 <ul class="dropdown-menu">

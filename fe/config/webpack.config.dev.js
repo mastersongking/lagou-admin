@@ -31,8 +31,8 @@ module.exports = {
                 loader : "art-template-loader" 
             },
             {
-                test : /\.(scss||css)$/,
-                loader : ['style-loader','css-loader','sass-loader']
+                test: /\.(scss|css)$/,
+                loaders: ['style-loader', 'css-loader', 'sass-loader']
             }
         ]
     },
@@ -40,13 +40,13 @@ module.exports = {
     plugins : [
         // 打包html+css+js文件。
         new HtmlWebpackPlugin({
-            template : "./index.html",
+            template : "src/index.html",
             filename : "index.html",
         }),
         // 拷贝public文件
         new copyWebpackPlugin([{
-            from: './public',
-            to: './public'
+            from: 'public',
+            to: 'public'
         }])
     ]
 }

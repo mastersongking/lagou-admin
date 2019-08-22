@@ -5,6 +5,7 @@ const router = new SMERouter('router-view','hash')//所需要渲染的标签的 
 
 import Home from "../controller/home.js";
 import Position from "../controller/position.js";
+import userView from "../controller/user.js";
 
 //sem-router中间件，做按钮高亮
 router.use((req,res,next)=>{    
@@ -23,5 +24,5 @@ router.use((req,res,next)=>{
 router.route('/',Home.render)
 router.route('/position',Position.render)
 router.redirect('/')
-
+userView.render();
 export default router;
