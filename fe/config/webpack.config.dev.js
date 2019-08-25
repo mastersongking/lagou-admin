@@ -7,8 +7,8 @@ module.exports = {
     entry : "./src/app.js", //入口文件
     // js文件
     output : {//出口文件名
-        path : path.resolve(__dirname,"../dev"),  //地址 __dirname表示当前物理的物理路径(也就是父级文件夹)
-        filename : "app.js"   //文件名
+        path : path.resolve(__dirname,"../dev"),  //该目录下的所有文件。 (使用的是绝对路径)
+        filename : "app.js"   //输出文件的文件名
     },
     // 开启服务器
     devServer : {

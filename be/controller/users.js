@@ -88,7 +88,6 @@ module.exports =  {
         let username = req.session.username;
         res.set("content-type","application/json;charset=utf-8");
         if(username){
-            next();
             res.render('success',{
                 data : JSON.stringify({
                     msg : "曾经登录过",

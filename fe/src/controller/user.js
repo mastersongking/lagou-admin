@@ -1,7 +1,6 @@
 import userView from "../view/user.art";
 let _url = "";
 let _type = "";
-let eleId = "";
 export default {
     async render(){
         // 未登录和已登录的navbar是不同的

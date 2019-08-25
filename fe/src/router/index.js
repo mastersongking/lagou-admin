@@ -8,7 +8,7 @@ import Position from "../controller/position.js";
 import userView from "../controller/user.js";
 
 //sem-router中间件，做按钮高亮
-router.use((req,res,next)=>{    
+router.use((req,res,next)=>{    //路由切换时，事件发生
     $(`.sidebar-menu li a[href="/#${req.url}"]`) //req.url 为/ 和 /position
     .parent()
     .addClass("active")
@@ -20,9 +20,11 @@ router.use((req,res,next)=>{
 //     res.render(Home);
 // })
 // 将res.render这个方法拆分成一个模块,引过来后，不需要执行函数。
-
 router.route('/',Home.render)
 router.route('/position',Position.render)
-router.redirect('/')
+router.route('/position_add',Position.add)
+router.route('/position_edit',Position.edit);
+
+router.redirect('/') //重定向  (需要修改)
 userView.render();
 export default router;
