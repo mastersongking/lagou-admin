@@ -58,7 +58,7 @@ module.exports =  {
         }
         else if(result){
             if(await CryptTool.compare(password,result.password)){
-                req.session.username = username; //埋下一个cookie的种子
+                req.session.username = username; //在请求的路径上埋下一个cookie的种子
                 res.render('success',{
                     data : JSON.stringify({
                         msg : "用户登录成功",

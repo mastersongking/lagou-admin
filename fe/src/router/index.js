@@ -8,7 +8,7 @@ import Position from "../controller/position.js";
 import userView from "../controller/user.js";
 
 //sem-router中间件，做按钮高亮
-router.use((req,res,next)=>{    //路由切换时，事件发生
+router.route("*",(req,res,next)=>{    //路由切换时，事件发生
     $(`.sidebar-menu li a[href="/#${req.url}"]`) //req.url 为/ 和 /position
     .parent()
     .addClass("active")

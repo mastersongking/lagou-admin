@@ -25,6 +25,7 @@ module.exports =  {
         res.set("content-type","application/json;charset=utf-8");
         let result = await positionModel.save({
             ...req.body,
+            companyLogo : req.filename,
             createTime : moment().format('YYYY-MM-DD hh:mm:ss a')
         });
         if (result) {
@@ -44,25 +45,22 @@ module.exports =  {
         }
     },
     async updata(req,res,next){
-        let result = await positionModel.updata({
+        let data = {
             ...req.body,
             createTime : moment().format('YYYY-MM-DD hh:mm:ss a')
-        });
-        if(result){
-            res.render('success', {
-                data: JSON.stringify({
-                    msg: "数据修改成功",
-                    req:req.body
-                }),
-            })
+        };
+        if(data.companyLogo === ''){
+            delete data.companyLogo;
         }
         else{
-            res.render('fail', {
-                data: JSON.stringify({
-                    msg: "数据修改失败",
-                }),
-            })
+            data.companyLogo = req.filename;
         }
+        let result = await positionModel.updata(data)
+        res.render('success', {
+            data: JSON.stringify({
+                msg: "数据修改成功",
+            }),
+        })
     },
     async find(req,res,next){
         let result = await positionModel.findById(Object.keys(req.body)[0]);
@@ -84,10 +82,39 @@ module.exports =  {
     },
     async remove(req,res,next){
         let result = await positionModel.remove(req.body.id);
-        res.render('success', {
-            data: JSON.stringify({
-                msg: "数据查找成功",
-            }),
-        })
+        if(result){
+            res.render('success', {
+                data: JSON.stringify({
+                    msg: "数据删除成功",
+                }),
+            })
+        }
+        else{
+            res.render('fail', {
+                data: JSON.stringify({
+                    msg: "数据删除失败",
+                }),
+            })
+        }
+    },
+    async search(req,res,next){
+        let result = await positionModel.search(req.body.searchValue)
+        if(result){
+            let total = result.length;
+            res.render('success', {
+                data: JSON.stringify({
+                    msg: "数据搜索成功",
+                    result,
+                    total
+                }),
+            })
+        }
+        else{
+            res.render('fail', {
+                data: JSON.stringify({
+                    msg: "数据搜索失败",
+                }),
+            })
+        }
     }
 }
