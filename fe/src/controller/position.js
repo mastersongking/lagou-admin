@@ -14,6 +14,9 @@ function loaddata(pageNo,res){//页面渲染，(职位列表s)
             start,
             count:COUNT
         },
+        headers : {    
+            "x-access-token" : localStorage.getItem("token")
+        },
         success(result){    
             if(result.state){
                 if(result.data.list.length === 0 && pageNo !== 0){ //当当前页没有数据，且不为第一页时
@@ -39,6 +42,9 @@ function reWrite(res,id){
         dataType : "json",
         type : "POST",
         data : id,
+        headers : {    
+            "x-access-token" : localStorage.getItem("token")
+        },
         success(result){
             if(result.state){
                 res.render(positionEdit({
@@ -59,6 +65,9 @@ function dataDel(res,id){
         type : "delete",
         data : {
             id
+        },
+        headers : {    
+            "x-access-token" : localStorage.getItem("token")
         },
         success(result){
             if(result.state){
@@ -114,6 +123,9 @@ export default {
                 data : {
                     searchValue 
                 },
+                headers : {    
+                    "x-access-token" : localStorage.getItem("token")
+                },
                 success(result){
                     if(result.state){
                         let total = result.data.result.length;
@@ -134,6 +146,9 @@ export default {
                 url : "/api/position/save" ,
                 type : "POST",  
                 dataType : "json",
+                headers : {    
+                    "x-access-token" : localStorage.getItem("token")
+                },
                 success(result){
                     // console.log(result);
                     if(result.state){
@@ -159,6 +174,9 @@ export default {
                 url : '/api/position/updata',
                 type : "PATCH",
                 dataType :"json",
+                headers : {    
+                    "x-access-token" : localStorage.getItem("token")
+                },
                 success(result){
                     if(result.state){
                         res.go('/position');

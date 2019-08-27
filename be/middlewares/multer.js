@@ -1,13 +1,13 @@
 var multer = require('multer')
 var path   = require("path");
 var random = require("string-random");
-let filename = ''
 var storage = multer.diskStorage({
     destination: function (req, file, cb) { //设置文件的存储目录
         cb(null, path.resolve(__dirname,"../public/uploads"))
     },
     filename: function (req, file, cb) { //设置文件名
-        filename = random(8) + "-" + Date.now() + file.originalname.substr(file.originalname.lastIndexOf("."));
+        let filename = random(8) + "-" + Date.now() + file.originalname.substr(file.originalname.lastIndexOf("."));
+        req.filename = filename;
         cb(null,filename);
     }
 })//file是上传文件的基本信息。包括域名(input的name值)、图片源名等
@@ -39,7 +39,9 @@ module.exports = (req,res,next)=>{
             })
         }
         else{
-            req.filename = filename  //请求头中附加上文件且经过处理的文件名。
+            if(req.body.companyLogo === ''){ //避免还保存着上一次修改的图片数据。
+                delete req.body.companyLogo
+            }
             next();
         } 
     })

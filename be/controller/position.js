@@ -49,12 +49,11 @@ module.exports =  {
             ...req.body,
             createTime : moment().format('YYYY-MM-DD hh:mm:ss a')
         };
-        if(data.companyLogo === ''){
-            delete data.companyLogo;
+        // 判断请求中是否存在上一个中间件，传下来的filename属性，若有则添加其域名。
+        if (req.filename) {
+            data['companyLogo'] = req.filename
         }
-        else{
-            data.companyLogo = req.filename;
-        }
+
         let result = await positionModel.updata(data)
         res.render('success', {
             data: JSON.stringify({

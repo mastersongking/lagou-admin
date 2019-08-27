@@ -2,6 +2,7 @@
 // 路由操作。
 const UserModel = require("../models/users");
 const CryptTool = require("../util/bcrypt");
+const tokenTool = require("../util/token");
 module.exports =  {
     // 注册
     async signUp(req,res,next){
@@ -46,6 +47,7 @@ module.exports =  {
     async signIn(req,res,next){
         let {username,password} = req.body;
         // 进行数据库比对,寻找相同用户名的数据
+
         let result = await UserModel.findOne(username)  //返回的额Boolean值
         // 比对用户名，存在则继续比对密码。
         res.set("content-type","application/json;charset=utf-8");
@@ -58,7 +60,10 @@ module.exports =  {
         }
         else if(result){
             if(await CryptTool.compare(password,result.password)){
-                req.session.username = username; //在请求的路径上埋下一个cookie的种子
+                // req.session.username = username; //在请求的路径上埋下一个cookie的种子
+
+                // 设置一个自定义的首部，来存放token
+                res.set("x-access-token",tokenTool.sign(username))
                 res.render('success',{
                     data : JSON.stringify({
                         msg : "用户登录成功",
@@ -85,13 +90,15 @@ module.exports =  {
 
     // 验证是否曾登录,就是验证是否有cookie
     async isSign(req,res,next){
-        let username = req.session.username;
         res.set("content-type","application/json;charset=utf-8");
-        if(username){
+        
+        let token = req.get('x-access-token')// 获取header，首部上的数据
+        let result = await tokenTool.verify(token);
+        if(result){
             res.render('success',{
                 data : JSON.stringify({
                     msg : "曾经登录过",
-                    username
+                    username : result
                 }),
             })
         }

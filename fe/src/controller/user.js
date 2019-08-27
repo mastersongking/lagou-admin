@@ -22,6 +22,9 @@ export default {
         let _url = "/api/users/isSign";
         return $.ajax({
             url : _url ,
+            headers : { //不一定非要通过req.body的方式向后端发送数据，可以通过首部向后端发送数据    
+                "x-access-token" : localStorage.getItem("token")
+            },
             dataType : "json",
             success(res){
                 return res;
@@ -45,29 +48,32 @@ export default {
                 url : _url,
                 data,
                 type : "POST",
+                headers : {    
+                    "x-access-token" : localStorage.getItem("token")
+                },
                 success : $.proxy(this.successMsg,this),
             })
-        })
+        })  
         $(".user-menu").on("click","#btn-signout",()=>{
-            $.ajax({
-                url : "/api/users/signoutL",
-                dataType :"json",
-                success : $.proxy(this.successMsg,this),
-            })
+            localStorage.removeItem("token");
+            location.reload();
         })
     },
-    successMsg(res){
+    successMsg(res,textStatus, jqXHR){
         if(_type === "btn-signUp" ){ //注册
             alert(res.data.msg)
         }
         else if(_type === "btn-signIn")//登录
         { 
-            if(res.state){
+            if(res.state){ //登录成功
                 let html = userView({
                     isSigin : res.state,
                     username : res.data.username
                 })
                 $(".user-menu").html(html);
+                // console.log(textStatus) 请求是否成功，返回success 或 fail
+                // console.log(jqXHR.getResponseHeader("x-access-token"))
+                localStorage.setItem("token",jqXHR.getResponseHeader("x-access-token"))
             }
             else{
                 alert(res.data.msg);
