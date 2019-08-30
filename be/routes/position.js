@@ -6,6 +6,7 @@ var router  = express.Router();
 
 router.get('/list' , authMiddleWare.auth , PositionList.render);  //前端进行访问时，进行拦截。中间栈方式。
 
+router.get('/findAll', PositionList.findAll)
 router.post('/save' , authMiddleWare.auth , multerMiddleware , PositionList.save); //多加一个中间件，解析二进制图片
 
 router.patch('/updata' , authMiddleWare.auth ,multerMiddleware, PositionList.updata); 

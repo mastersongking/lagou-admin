@@ -115,5 +115,23 @@ module.exports =  {
                 }),
             })
         }
+    },
+    async findAll(req,res,next){
+        let result = await positionModel.findAll()
+        if(result){
+            res.render('success',{
+                data : JSON.stringify({
+                    msg : "数据获取成功",
+                    result
+                })
+            })
+        }
+        else{
+            res.render('fail',{
+                data : JSON.stringify({
+                    msg : "数据获取失败",
+                })
+            })
+        }
     }
 }

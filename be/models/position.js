@@ -41,5 +41,8 @@ module.exports = {
                 }
             ]
         }).sort({_id : -1})
+    },
+    findAll(){
+        return Position.find({})
     }
 }
