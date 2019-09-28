@@ -30,7 +30,7 @@
       {{each list}}
       <tr>
         <td>{{$index+1}}</td>
-        <td><img width="50" height="50" src="http://localhost:3000/uploads/{{$value['companyLogo']}}" alt=""></td>
+        <td><img width="50" height="50" src="http://10.60.15.64:3000/uploads/{{$value['companyLogo']}}" alt=""></td>
         <td>{{$value.companyName}}</td>
         <td>{{$value.positionName}}</td>
         <td>{{$value.city}}</td>

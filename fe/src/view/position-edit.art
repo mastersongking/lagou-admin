@@ -9,7 +9,7 @@
 
       <div class="form-group">
         <label for="companyLogo" class="col-sm-2 control-label">商品图片</label>
-          <img style="height: 100px;width:100px;" src="http://localhost:3000/uploads/{{list.companyLogo}}" alt="">
+          <img style="height: 100px;width:100px;" src="http://10.60.15.64:3000/uploads/{{list.companyLogo}}" alt="">
         <div class="col-sm-10">
           <input type="file" class="form-control" name="companyLogo" id="companyLogo" placeholder="请选择所上传的商品图片">
         </div>

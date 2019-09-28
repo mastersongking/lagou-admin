@@ -15,10 +15,11 @@ module.exports = {
         contentBase: path.join(__dirname, "../dev"),
         compress: true,
         port: 8000,
+        host : "10.60.15.64",
         //服务器代理
         proxy: {
             "/api": {
-                target: "http://localhost:3000",
+                target: "http://10.60.15.64:3000",
             }
         }
     },
@@ -38,7 +39,7 @@ module.exports = {
     },
     // 插件
     plugins : [
-        // 打包html+css+js文件。
+        // 生成html文件，并在html文件中引入css+js。
         new HtmlWebpackPlugin({
             template : "src/index.html",
             filename : "index.html",
